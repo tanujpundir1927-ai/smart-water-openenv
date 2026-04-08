@@ -1,0 +1,14 @@
+name: smart-water-env
+description: Smart water management RL environment
+
+actions:
+  - reduce
+  - increase
+  - maintain
+  - fix
+
+observations:
+  water_level: int
+  demand: int
+  leakage: int
+  time: int
