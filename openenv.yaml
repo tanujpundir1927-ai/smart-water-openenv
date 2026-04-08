@@ -1,7 +1,7 @@
 name: smart-water-env
 description: Smart water OpenEnv environment
 
-entrypoint: app:app
+entrypoint: server.app:app
 
 actions:
   - reduce
