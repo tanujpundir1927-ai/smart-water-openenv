@@ -2,9 +2,19 @@
 name = "smart-water-openenv"
 version = "0.1.0"
 description = "OpenEnv smart water environment"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "requests",
+    "openai",
+    "openenv-core>=0.2.0"
+]
+
+[project.scripts]
+server = "server.app:app"
 
 [tool.openenv]
-entry_point = "app:app"
+entry_point = "server.app:app"
 
 [build-system]
 requires = ["setuptools"]
