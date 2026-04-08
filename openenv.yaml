@@ -1,5 +1,7 @@
 name: smart-water-env
-description: Smart water management RL environment
+description: Smart water OpenEnv environment
+
+entrypoint: app:app
 
 actions:
   - reduce
