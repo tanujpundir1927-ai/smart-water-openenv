@@ -14,7 +14,7 @@ dependencies = [
 server = "server.app:app"
 
 [tool.openenv]
-entry_point = "server.app:app"
+server = "server.app:main"
 
 [build-system]
 requires = ["setuptools"]
