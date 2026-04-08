@@ -1,14 +1,10 @@
 [project]
 name = "smart-water-openenv"
 version = "0.1.0"
-description = "OpenEnv smart water management environment"
-authors = [{name="Niwaan"}]
-dependencies = [
-    "fastapi",
-    "uvicorn",
-    "requests",
-    "openai"
-]
+description = "OpenEnv smart water environment"
+
+[tool.openenv]
+entry_point = "app:app"
 
 [build-system]
 requires = ["setuptools"]
