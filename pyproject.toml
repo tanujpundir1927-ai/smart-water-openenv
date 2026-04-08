@@ -1,0 +1,15 @@
+[project]
+name = "smart-water-openenv"
+version = "0.1.0"
+description = "OpenEnv smart water management environment"
+authors = [{name="Niwaan"}]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "requests",
+    "openai"
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
