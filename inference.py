@@ -1,15 +1,4 @@
-import os
 import requests
-from openai import OpenAI
-
-API_BASE_URL = os.getenv("API_BASE_URL")
-MODEL_NAME = os.getenv("MODEL_NAME")
-HF_TOKEN = os.getenv("HF_TOKEN")
-
-client = OpenAI(
-    base_url=API_BASE_URL,
-    api_key=HF_TOKEN
-)
 
 BASE_URL = "http://127.0.0.1:7860"
 
@@ -21,25 +10,37 @@ def choose_action(state):
     return "maintain"
 
 def run():
-    print("[START]")
+    task = "smart_water"
+    total_reward = 0
+    steps = 0
+
+    print(f"[START] task={task}", flush=True)
 
     try:
-        state = requests.post(f"{BASE_URL}/reset").json()
+        state = requests.post(f"{BASE_URL}/reset").json()["state"]
 
         for step in range(10):
             action = choose_action(state)
 
-            response = requests.post(
+            res = requests.post(
                 f"{BASE_URL}/step",
                 json={"action": action}
             ).json()
 
-            state = response["state"]
-            reward = response["reward"]
+            state = res["state"]
+            reward = res["reward"]
 
-            print(f"[STEP] step={step} action={action} reward={reward}")
+            total_reward += reward
+            steps += 1
+
+            print(f"[STEP] step={step} reward={reward}", flush=True)
 
     except Exception as e:
-        print("[ERROR]", str(e))
+        print(f"[ERROR] {e}", flush=True)
 
-    print("[END]") 
+    score = total_reward / max(steps, 1)
+
+    print(f"[END] task={task} score={score} steps={steps}", flush=True)
+
+if __name__ == "__main__":
+    run()
