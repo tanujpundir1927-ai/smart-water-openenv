@@ -11,7 +11,7 @@ client = OpenAI(
     api_key=HF_TOKEN
 )
 
-BASE_URL = "http://localhost:8000"
+BASE_URL = "http://127.0.0.1:7860"
 
 def choose_action(state):
     if state["leakage"] == 1:
@@ -23,28 +23,23 @@ def choose_action(state):
 def run():
     print("[START]")
 
-    state = requests.post(f"{BASE_URL}/reset").json()
+    try:
+        state = requests.post(f"{BASE_URL}/reset").json()
 
-    for step in range(15):
-        action = choose_action(state)
+        for step in range(10):
+            action = choose_action(state)
 
-        # Required dummy LLM call
-        client.chat.completions.create(
-            model=MODEL_NAME,
-            messages=[{"role": "user", "content": "optimize water"}]
-        )
+            response = requests.post(
+                f"{BASE_URL}/step",
+                json={"action": action}
+            ).json()
 
-        response = requests.post(
-            f"{BASE_URL}/step",
-            json={"action": action}
-        ).json()
+            state = response["state"]
+            reward = response["reward"]
 
-        state = response["state"]
-        reward = response["reward"]
+            print(f"[STEP] step={step} action={action} reward={reward}")
 
-        print(f"[STEP] step={step} action={action} reward={reward}")
+    except Exception as e:
+        print("[ERROR]", str(e))
 
-    print("[END]")
-
-if __name__ == "__main__":
-    run()
+    print("[END]") 
