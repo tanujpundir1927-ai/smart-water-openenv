@@ -1,5 +1,5 @@
 TASKS = [
-    {"name": "easy", "description": "No leakage, stable demand"},
-    {"name": "medium", "description": "Random leakage"},
-    {"name": "hard", "description": "High demand + leakage"}
+    {"name": "easy", "description": "Low demand, no leakage"},
+    {"name": "medium", "description": "Moderate demand with leakage"},
+    {"name": "hard", "description": "High demand and leakage"}
 ]
